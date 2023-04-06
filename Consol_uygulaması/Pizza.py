@@ -1,3 +1,6 @@
+import pandas as pd
+from IPython.display import display
+
 class Menu:
     def __init__(self):
         self.menu = {}
@@ -58,7 +61,23 @@ def satın_alım(ürün_adı,adet,menü):
 
 
 
-liste = [["müşteri_no","kullanıcı","user","ücret"]]
+
+
+siparişler = {
+
+
+    "müşteri_no" : [],
+    "kullanıcı" : [],
+    "user" : [],
+    "ücret" : []
+
+
+
+}
+
+
+
+
 müşteri_no = 0
 
 print("--------- İyi Pizza Güzel Pizza --------")
@@ -71,14 +90,22 @@ while True:
 
 
     if seçim1 == "2":
-        [print(x[0],x[1],x[3]) for x in liste] # x[0],x[1],x[3]
 
+        df = pd.DataFrame(siparişler)
+        df = df.drop(['user'], axis=1)
+        display(df)
 
     elif seçim1 == "1":
 
         kullanıcı = input("> isim : ")
         user = sipariş(kullanıcı)
         user_pack = [müşteri_no,kullanıcı,user]####
+
+
+        siparişler["müşteri_no"].append(müşteri_no)
+        siparişler["kullanıcı"].append(kullanıcı)
+        siparişler["user"].append(user)
+
         #liste.append([müşteri_no,kullanıcı,user])
         print("> 0 : Çıkış")
         print(menü.menü_göster())
@@ -226,7 +253,6 @@ while True:
                 print(user.sipariş_tamamla())
                 
                 user_pack.append(user.sipariş_tamamla())
-                
-                liste.append(user_pack)
+                siparişler["ücret"].append(user.sipariş_tamamla())
+
                 break
-            
