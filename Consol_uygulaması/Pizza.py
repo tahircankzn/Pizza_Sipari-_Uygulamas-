@@ -31,21 +31,21 @@ class sipariş():
         total = 0
         for isim , adet in self.sipariş.items():
             total += self.menu[isim]*adet[0]
-        print(total ,"TL")
+        return total 
         
         
     
 
 menü = Menu()
 menü.add_menu("Sosisli Pizza",65)
-menü.add_menu("Suçuklu Pizza",45)
-menü.add_menu("Karışık Pizza",45)
-menü.add_menu("Ananaslı Pizza",45)
-menü.add_menu("Vejeteryan Pizza",45)
-menü.add_menu("Hamburger Pizza",45)
-menü.add_menu("Büyük Boy Patates Kızartması",45)
-menü.add_menu("Küçük Boy Kızartması",45)
-menü.add_menu("Limonlu İce Tea",45)
+menü.add_menu("Suçuklu Pizza",75)
+menü.add_menu("Karışık Pizza",80)
+menü.add_menu("Ananaslı Pizza",60)
+menü.add_menu("Vejeteryan Pizza",50)
+menü.add_menu("Hamburger Pizza",75)
+menü.add_menu("Büyük Boy Patates Kızartması",30)
+menü.add_menu("Küçük Boy Kızartması",20)
+menü.add_menu("Limonlu İce Tea",15)
 menü.add_menu("Ayran",10)
 menü.add_menu("Su",5)
 
@@ -58,7 +58,7 @@ def satın_alım(ürün_adı,adet,menü):
 
 
 
-liste = []
+liste = [["müşteri_no","kullanıcı","user","ücret"]]
 müşteri_no = 0
 
 print("--------- İyi Pizza Güzel Pizza --------")
@@ -68,13 +68,18 @@ while True:
 
     print("> sipariş al : 1\n> siparişler : 2")
     seçim1 = input("> ")
+
+
     if seçim1 == "2":
-        print(liste)
+        [print(x[0],x[1],x[3]) for x in liste] # x[0],x[1],x[3]
+
+
     elif seçim1 == "1":
 
         kullanıcı = input("> isim : ")
         user = sipariş(kullanıcı)
-        liste.append([müşteri_no,kullanıcı,user])
+        user_pack = [müşteri_no,kullanıcı,user]####
+        #liste.append([müşteri_no,kullanıcı,user])
         print("> 0 : Çıkış")
         print(menü.menü_göster())
         while True:
@@ -135,13 +140,13 @@ while True:
             if seçim == "5": 
                 if "Vejeteryan Pizza" in list(user.sipariş):
                     adet = int(input("> Adet : "))
-                    satın_alım1("Vejeteryan Pizza ",adet)
+                    satın_alım1("Vejeteryan Pizza",adet)
                     #user.sipariş["Pizza"][0] +=adet
 
                 else:
                     adet = int(input("> Adet : "))
                     #user.alım("Sosisli Pizza",adet,menü.menu)
-                    satın_alım("Vejeteryan Pizza ",adet,menü.menu)
+                    satın_alım("Vejeteryan Pizza",adet,menü.menu)
 
             # Hamburger Pizza
             if seçim == "6": 
@@ -218,23 +223,10 @@ while True:
 
 
             elif seçim == "0":
-                user.sipariş_tamamla()  
+                print(user.sipariş_tamamla())
+                
+                user_pack.append(user.sipariş_tamamla())
+                
+                liste.append(user_pack)
                 break
             
-        
-      
-
-    
-            
-           
-
-        
-
-
-
-
-
-
-
-
-
